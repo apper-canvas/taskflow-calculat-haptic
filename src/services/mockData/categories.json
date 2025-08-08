@@ -1,0 +1,30 @@
+[
+  {
+    "Id": 1,
+    "name": "Work Projects",
+    "color": "#5B47E0",
+    "taskCount": 4,
+    "createdAt": "2024-12-01T09:00:00Z"
+  },
+  {
+    "Id": 2,
+    "name": "Management",
+    "color": "#00D4AA",
+    "taskCount": 2,
+    "createdAt": "2024-12-01T09:15:00Z"
+  },
+  {
+    "Id": 3,
+    "name": "Learning",
+    "color": "#F59E0B",
+    "taskCount": 2,
+    "createdAt": "2024-12-01T09:30:00Z"
+  },
+  {
+    "Id": 4,
+    "name": "Personal",
+    "color": "#EF4444",
+    "taskCount": 3,
+    "createdAt": "2024-12-01T09:45:00Z"
+  }
+]

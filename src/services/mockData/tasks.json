@@ -1,0 +1,134 @@
+[
+  {
+    "Id": 1,
+    "title": "Review Q4 marketing campaign proposals",
+    "description": "Go through all submitted campaign proposals and provide feedback by end of week",
+    "categoryId": 1,
+    "priority": "high",
+    "dueDate": "2024-12-20",
+    "completed": false,
+    "createdAt": "2024-12-15T09:00:00Z",
+    "completedAt": null
+  },
+  {
+    "Id": 2,
+    "title": "Update project timeline",
+    "description": "Revise project milestones based on latest requirements and team capacity",
+    "categoryId": 1,
+    "priority": "medium",
+    "dueDate": "2024-12-18",
+    "completed": true,
+    "createdAt": "2024-12-14T10:30:00Z",
+    "completedAt": "2024-12-17T14:20:00Z"
+  },
+  {
+    "Id": 3,
+    "title": "Prepare presentation for stakeholder meeting",
+    "description": "Create slides covering progress, challenges, and next steps",
+    "categoryId": 1,
+    "priority": "high",
+    "dueDate": "2024-12-19",
+    "completed": false,
+    "createdAt": "2024-12-13T16:45:00Z",
+    "completedAt": null
+  },
+  {
+    "Id": 4,
+    "title": "Schedule annual performance reviews",
+    "description": "Coordinate with HR to schedule reviews for all team members",
+    "categoryId": 2,
+    "priority": "medium",
+    "dueDate": "2024-12-22",
+    "completed": false,
+    "createdAt": "2024-12-12T08:15:00Z",
+    "completedAt": null
+  },
+  {
+    "Id": 5,
+    "title": "Review and approve expense reports",
+    "description": "Process pending expense reports from team members",
+    "categoryId": 2,
+    "priority": "low",
+    "dueDate": "2024-12-21",
+    "completed": false,
+    "createdAt": "2024-12-11T11:20:00Z",
+    "completedAt": null
+  },
+  {
+    "Id": 6,
+    "title": "Research new project management tools",
+    "description": "Evaluate options for replacing current PM software",
+    "categoryId": 3,
+    "priority": "medium",
+    "dueDate": "2024-12-25",
+    "completed": false,
+    "createdAt": "2024-12-10T13:30:00Z",
+    "completedAt": null
+  },
+  {
+    "Id": 7,
+    "title": "Read industry report on market trends",
+    "description": "Stay updated with latest industry developments",
+    "categoryId": 3,
+    "priority": "low",
+    "dueDate": null,
+    "completed": false,
+    "createdAt": "2024-12-09T15:10:00Z",
+    "completedAt": null
+  },
+  {
+    "Id": 8,
+    "title": "Grocery shopping for the week",
+    "description": "Buy fresh produce, dairy, and household essentials",
+    "categoryId": 4,
+    "priority": "medium",
+    "dueDate": "2024-12-19",
+    "completed": false,
+    "createdAt": "2024-12-16T07:00:00Z",
+    "completedAt": null
+  },
+  {
+    "Id": 9,
+    "title": "Book dentist appointment",
+    "description": "Schedule routine cleaning and checkup",
+    "categoryId": 4,
+    "priority": "low",
+    "dueDate": "2024-12-30",
+    "completed": false,
+    "createdAt": "2024-12-15T12:45:00Z",
+    "completedAt": null
+  },
+  {
+    "Id": 10,
+    "title": "Plan weekend hiking trip",
+    "description": "Research trails, check weather, and prepare gear",
+    "categoryId": 4,
+    "priority": "low",
+    "dueDate": "2024-12-20",
+    "completed": true,
+    "createdAt": "2024-12-14T19:30:00Z",
+    "completedAt": "2024-12-16T21:15:00Z"
+  },
+  {
+    "Id": 11,
+    "title": "Complete code review for authentication module",
+    "description": "Review security implementation and provide feedback",
+    "categoryId": 1,
+    "priority": "high",
+    "dueDate": "2024-12-17",
+    "completed": false,
+    "createdAt": "2024-12-16T14:20:00Z",
+    "completedAt": null
+  },
+  {
+    "Id": 12,
+    "title": "Organize team building event",
+    "description": "Plan activities and coordinate with team members",
+    "categoryId": 2,
+    "priority": "medium",
+    "dueDate": "2024-12-28",
+    "completed": false,
+    "createdAt": "2024-12-15T16:00:00Z",
+    "completedAt": null
+  }
+]
