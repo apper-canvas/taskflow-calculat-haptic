@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { categoryService } from "@/services/api/categoryService";
+import { toast } from "react-toastify";
 
 export const useCategories = () => {
   const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const loadCategories = async () => {
@@ -11,10 +12,16 @@ export const useCategories = () => {
       setLoading(true);
       setError("");
       const data = await categoryService.getAll();
-      setCategories(data);
+      
+      if (!data || data.length === 0) {
+        setCategories([]);
+      } else {
+        setCategories(data);
+      }
     } catch (err) {
       setError("Failed to load categories. Please try again.");
       console.error("Error loading categories:", err);
+      setCategories([]);
     } finally {
       setLoading(false);
     }
@@ -24,11 +31,15 @@ export const useCategories = () => {
     try {
       setError("");
       const newCategory = await categoryService.create(categoryData);
-      await loadCategories(); // Refresh the list
-      return newCategory;
+      if (newCategory) {
+        toast.success("Category created successfully!");
+        await loadCategories(); // Refresh the list
+        return newCategory;
+      }
     } catch (err) {
       setError("Failed to create category. Please try again.");
       console.error("Error creating category:", err);
+      toast.error("Failed to create category. Please try again.");
       throw err;
     }
   };
@@ -37,11 +48,15 @@ export const useCategories = () => {
     try {
       setError("");
       const updatedCategory = await categoryService.update(id, updates);
-      await loadCategories(); // Refresh the list
-      return updatedCategory;
+      if (updatedCategory) {
+        toast.success("Category updated successfully!");
+        await loadCategories(); // Refresh the list
+        return updatedCategory;
+      }
     } catch (err) {
       setError("Failed to update category. Please try again.");
       console.error("Error updating category:", err);
+      toast.error("Failed to update category. Please try again.");
       throw err;
     }
   };
@@ -49,11 +64,15 @@ export const useCategories = () => {
   const deleteCategory = async (id) => {
     try {
       setError("");
-      await categoryService.delete(id);
-      await loadCategories(); // Refresh the list
+      const success = await categoryService.delete(id);
+      if (success) {
+        toast.success("Category deleted successfully!");
+        await loadCategories(); // Refresh the list
+      }
     } catch (err) {
       setError(err.message || "Failed to delete category. Please try again.");
       console.error("Error deleting category:", err);
+      toast.error(err.message || "Failed to delete category. Please try again.");
       throw err;
     }
   };

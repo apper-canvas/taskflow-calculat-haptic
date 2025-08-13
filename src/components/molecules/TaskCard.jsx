@@ -11,11 +11,13 @@ const TaskCard = ({ task, onUpdate, onDelete, category }) => {
   const [isCompleting, setIsCompleting] = useState(false);
   const [showConfetti, setShowConfetti] = useState(false);
 
-  const handleToggleComplete = async () => {
+const handleToggleComplete = async () => {
     setIsCompleting(true);
     
     try {
-      if (!task.completed) {
+      const currentCompleted = task.completed_c !== undefined ? task.completed_c : task.completed;
+      
+      if (!currentCompleted) {
         // Show confetti animation before updating
         setShowConfetti(true);
         setTimeout(() => setShowConfetti(false), 600);
@@ -32,7 +34,7 @@ const TaskCard = ({ task, onUpdate, onDelete, category }) => {
         toast.success("🎉 Task completed! Great job!");
       }
       
-      await onUpdate(task.Id, { completed: !task.completed });
+      await onUpdate(task.Id, { completed_c: !currentCompleted });
     } catch (error) {
       toast.error("Failed to update task");
     } finally {
@@ -40,7 +42,7 @@ const TaskCard = ({ task, onUpdate, onDelete, category }) => {
     }
   };
 
-  const handleDelete = async () => {
+const handleDelete = async () => {
     try {
       await onDelete(task.Id);
       toast.success("Task deleted successfully");
@@ -49,15 +51,17 @@ const TaskCard = ({ task, onUpdate, onDelete, category }) => {
     }
   };
 
-  const getDueDateInfo = () => {
-    if (!task.dueDate) return null;
+const getDueDateInfo = () => {
+    const dueDate = task.due_date_c || task.dueDate;
+    if (!dueDate) return null;
     
-    const dueDate = parseISO(task.dueDate);
-    const isOverdue = isPast(dueDate) && !isToday(dueDate) && !task.completed;
-    const isDueToday = isToday(dueDate) && !task.completed;
+    const parsedDate = parseISO(dueDate);
+    const currentCompleted = task.completed_c !== undefined ? task.completed_c : task.completed;
+    const isOverdue = isPast(parsedDate) && !isToday(parsedDate) && !currentCompleted;
+    const isDueToday = isToday(parsedDate) && !currentCompleted;
     
     return {
-      formatted: format(dueDate, "MMM d"),
+      formatted: format(parsedDate, "MMM d"),
       isOverdue,
       isDueToday
     };
@@ -67,14 +71,14 @@ const TaskCard = ({ task, onUpdate, onDelete, category }) => {
   const priorityColor = category?.color || "#5B47E0";
 
   return (
-    <motion.div
+<motion.div
       id={`task-${task.Id}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, scale: 0.95, y: -20 }}
       whileHover={{ scale: 1.01, boxShadow: "0 8px 25px rgba(0,0,0,0.1)" }}
       className={`bg-surface p-4 rounded-lg border border-gray-100 transition-all duration-200 relative ${
-        task.completed ? "opacity-80" : ""
+        (task.completed_c !== undefined ? task.completed_c : task.completed) ? "opacity-80" : ""
       }`}
     >
       {/* Priority Indicator */}
@@ -102,27 +106,27 @@ const TaskCard = ({ task, onUpdate, onDelete, category }) => {
         <div className="flex items-start space-x-3 flex-1">
           <div className="mt-1">
             <Checkbox
-              checked={task.completed}
+checked={task.completed_c !== undefined ? task.completed_c : task.completed}
               onChange={handleToggleComplete}
               disabled={isCompleting}
             />
           </div>
           
           <div className="flex-1 min-w-0">
-            <h3 className={`font-medium text-gray-900 leading-5 ${
-              task.completed ? "line-through text-gray-500" : ""
+<h3 className={`font-medium text-gray-900 leading-5 ${
+              (task.completed_c !== undefined ? task.completed_c : task.completed) ? "line-through text-gray-500" : ""
             }`}>
-              {task.title}
+              {task.title_c || task.title}
             </h3>
             
-            {task.description && (
+{(task.description_c || task.description) && (
               <p className="text-sm text-gray-600 mt-1 leading-relaxed">
-                {task.description}
+                {task.description_c || task.description}
               </p>
             )}
             
-            <div className="flex items-center space-x-3 mt-3">
-              <Badge variant={task.priority}>{task.priority}</Badge>
+<div className="flex items-center space-x-3 mt-3">
+              <Badge variant={task.priority_c || task.priority}>{task.priority_c || task.priority}</Badge>
               
               {category && (
                 <Badge 

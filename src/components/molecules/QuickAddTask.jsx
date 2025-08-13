@@ -14,13 +14,13 @@ const QuickAddTask = ({ onTaskCreate, categories = [] }) => {
     if (!title.trim()) return;
 
     setIsAdding(true);
-    try {
+try {
       await onTaskCreate({
-        title: title.trim(),
-        description: "",
-        categoryId: categories[0]?.Id || 1,
-        priority: "medium",
-        dueDate: null
+        title_c: title.trim(),
+        description_c: "",
+        category_id_c: categories[0]?.Id || 1,
+        priority_c: "medium",
+        due_date_c: null
       });
       setTitle("");
       toast.success("Task created successfully!");

@@ -22,7 +22,7 @@ const TaskManager = () => {
 
   // Determine filter type based on route
   const getFilterType = () => {
-    if (location.pathname === "/today") return "today";
+if (location.pathname === "/today") return "today";
     if (location.pathname === "/overdue") return "overdue"; 
     if (location.pathname === "/completed") return "completed";
     if (categoryId) return "category";
@@ -30,7 +30,7 @@ const TaskManager = () => {
   };
 
   // Hooks for data fetching
-  const { 
+const { 
     tasks, 
     loading: tasksLoading, 
     error: tasksError, 
@@ -54,18 +54,26 @@ const TaskManager = () => {
     completedCount: 0
   });
 
-  useEffect(() => {
+useEffect(() => {
     const calculateStats = async () => {
       try {
         // These would normally come from service calls, but we'll calculate from current tasks
         const today = new Date().toISOString().split('T')[0];
         const allTasks = tasks; // This might not be all tasks if filtered, but for demo purposes
         
-        const todayTasks = allTasks.filter(task => task.dueDate === today && !task.completed);
-        const overdueTasks = allTasks.filter(task => 
-          task.dueDate && task.dueDate < today && !task.completed
+        const todayTasks = allTasks.filter(task => {
+          const dueDate = task.due_date_c || task.dueDate;
+          const completed = task.completed_c !== undefined ? task.completed_c : task.completed;
+          return dueDate === today && !completed;
+        });
+        const overdueTasks = allTasks.filter(task => {
+          const dueDate = task.due_date_c || task.dueDate;
+          const completed = task.completed_c !== undefined ? task.completed_c : task.completed;
+          return dueDate && dueDate < today && !completed;
+        });
+        const completedTasks = allTasks.filter(task => 
+          task.completed_c !== undefined ? task.completed_c : task.completed
         );
-        const completedTasks = allTasks.filter(task => task.completed);
 
         setStats({
           todayCount: todayTasks.length,
@@ -93,7 +101,7 @@ const TaskManager = () => {
     setIsModalOpen(true);
   };
 
-  const handleModalSubmit = async (taskData) => {
+const handleModalSubmit = async (taskData) => {
     if (modalMode === "create") {
       await createTask(taskData);
     } else {
@@ -102,7 +110,7 @@ const TaskManager = () => {
     refetchCategories(); // Update category counts
   };
 
-  const handleTaskUpdate = async (taskId, updates) => {
+const handleTaskUpdate = async (taskId, updates) => {
     await updateTask(taskId, updates);
     refetchCategories(); // Update category counts
   };
@@ -111,8 +119,7 @@ const TaskManager = () => {
     await deleteTask(taskId);
     refetchCategories(); // Update category counts
   };
-
-  const handleCreateCategory = () => {
+const handleCreateCategory = () => {
     // For demo purposes, we'll just show a simple alert
     // In a real app, this would open a category creation modal
     alert("Category creation feature would be implemented here");
@@ -225,7 +232,7 @@ const TaskManager = () => {
               onCreateTask={handleCreateTask}
               searchQuery={searchQuery}
               showCompleted={location.pathname === "/completed"}
-              title={(() => {
+title={(() => {
                 if (location.pathname === "/today") return "Today's Tasks";
                 if (location.pathname === "/overdue") return "Overdue Tasks";
                 if (location.pathname === "/completed") return "Completed Tasks";
@@ -240,7 +247,7 @@ const TaskManager = () => {
         </div>
       </div>
 
-      {/* Task Modal */}
+{/* Task Modal */}
       <TaskModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

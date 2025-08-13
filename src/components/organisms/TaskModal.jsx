@@ -18,29 +18,29 @@ const TaskModal = ({
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    categoryId: categories[0]?.Id || 1,
-    priority: "medium",
-    dueDate: ""
+category_id_c: categories[0]?.Id || 1,
+    priority_c: "medium",
+    due_date_c: ""
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState({});
 
-  useEffect(() => {
+useEffect(() => {
     if (isOpen && task && mode === "edit") {
       setFormData({
-        title: task.title || "",
-        description: task.description || "",
-        categoryId: task.categoryId || categories[0]?.Id || 1,
-        priority: task.priority || "medium",
-        dueDate: task.dueDate || ""
+        title_c: task.title_c || task.title || "",
+        description_c: task.description_c || task.description || "",
+        category_id_c: task.category_id_c || task.categoryId || categories[0]?.Id || 1,
+        priority_c: task.priority_c || task.priority || "medium",
+        due_date_c: task.due_date_c || task.dueDate || ""
       });
     } else if (isOpen && mode === "create") {
       setFormData({
-        title: "",
-        description: "",
-        categoryId: categories[0]?.Id || 1,
-        priority: "medium",
-        dueDate: ""
+        title_c: "",
+        description_c: "",
+        category_id_c: categories[0]?.Id || 1,
+        priority_c: "medium",
+        due_date_c: ""
       });
     }
     setErrors({});
@@ -72,8 +72,8 @@ const TaskModal = ({
     
     try {
       const submitData = {
-        ...formData,
-        categoryId: parseInt(formData.categoryId),
+...formData,
+        category_id_c: parseInt(formData.category_id_c),
         dueDate: formData.dueDate || null
       };
 
@@ -181,7 +181,7 @@ const TaskModal = ({
                   onChange={(e) => handleChange("categoryId", e.target.value)}
                   error={!!errors.categoryId}
                 >
-                  {categories.map(category => (
+{categories.map(category => (
                     <option key={category.Id} value={category.Id}>
                       {category.name}
                     </option>
